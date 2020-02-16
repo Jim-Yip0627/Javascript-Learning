@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<script type="text/javascript">
+	var myObject = {
+		a:2,
+		b:3,
+		c:4
+	};
+
+	Object.defineProperty(myObject,Symbol.iterator,{
+		enumerable:false,
+		writable:false,
+		configurable:true,
+		value:function(){
+			var obj = this;
+			var index = 0;
+			var keys = Object.keys(obj);
+			return {
+				next:function(){
+					return {
+						value:obj[keys[index++]],
+						done: (index > keys.length)
+					};
+				}
+			};
+		}
+	});
+
+	//手动遍历myObject;
+	//返回给it的是一个遍历器对象；而调用的是一个遍历器对象生成函数;
+	var it = myObject[Symbol.iterator]();
+	//每调用一次next()返回一个指针对象
+	console.log(it.next());
+	console.log(it.next());
+	console.log(it.next());
+	console.log(it.next());
+
+
+	//对于普通对象来说，JS没有内置iterator接口，因为它不知道使用者要按何顺序来遍历对象；
+	//因此若要使用for of 去遍历对象，就必须设置属于你自己的iterator接口。
+	//这个接口定义在对象的Symbol.iterator属性上，在上面设置一个遍历对象生成函数。
+	for(let v of myObject){
+		console.log(v);
+	}
+
+	//但对于数组这种数据结构，JS是有内置的iterator接口;
+	var array = ['a','b','c'];
+	for(let v of array){
+		console.log(v);
+	};
+
+	//逐个遍历也可以；
+	var itArray = array[Symbol.iterator]();
+	console.log(itArray.next());
+	console.log(itArray.next());
+	console.log(itArray.next());
+	console.log(itArray.next());
+
+
+	//注意！对于类似数组的对象
+	//我们可以如果想遍历它的话， 一个方便的方法是将数组的Symbol.iterator属性
+	//直接赋值给类似数组对象的Symbol.iterator属性。
+
+	var arrayLike = {
+		0:'Yip',
+		1:'Chan',
+		2:'Hello',
+		length:3,
+		[Symbol.iterator]:Array.prototype[Symbol.iterator]
+	};
+
+console.log('-------ArrayLike-------');
+
+	for(let v of arrayLike){
+		console.log(v);
+	}
+
+</script>
+<body>
+
+</body>
+</html>

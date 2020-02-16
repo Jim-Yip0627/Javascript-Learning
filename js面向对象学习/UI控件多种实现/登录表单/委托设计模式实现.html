@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<script src="jquery.min.js"></script>
+<script type="text/javascript">
+var LoginController = {
+	errors:[],
+	getUser(){
+		return document.getElementById("login_username").value;
+	},
+	getPassword(){
+		return document.getElementById("login_password").value;
+	},
+	validateEntry(user,pw){
+		user = user || this.getUser();
+		pw = pw || this.getPassword();
+
+		if(!(user&&pw)){
+			return this.failure("Please enter a uesrname & password!");
+		}else if(user.length<5){
+			return this.failure("Password must be 5+ characters!");
+		}
+
+		//如果执行到这里说明通过前台JS验证;
+		return true;
+	},
+	showDialog(title,msg){
+		console.log(title + ":" + msg);
+	},
+	failure(err){
+		this.errors.push(err);
+		this.showDialog("Error","Login invalid: " + err);
+	}
+};
+
+//让AuthController委托LoginController
+var AuthController = Object.create(LoginController);
+
+//注意这时候不能用对象字面量定义对象属性与方法了，因为会将prototype指向Object
+//自己重写以遮蔽原型里的errors属性
+AuthController.errors = [];
+AuthController.checkAuth = function(){
+	var user = this.getUser();
+	var pw = this.getPassword();
+	
+	if(this.validateEntry(user,pw)){
+		this.server("/check-auth",{
+			user:user,
+			pw:pw
+		})
+		.then(this.accepted.bind(this))
+		.fail(this.rejected.bind(this));
+	}
+};
+AuthController.server = function(url,data){
+	return $.ajax({
+		url:url,
+		data:data
+	});
+};
+AuthController.accepted = function(){
+	this.showDialog('Success' , "Authenticated!");
+};
+AuthController.rejected = function(err){
+	this.failure("Auth Failed: " + err);
+};
+
+
+</script>
+<body>
+	<input type="text" placeholder="输入用户名" name="user" id="login_username" value="1111">
+	<input type="password" placeholder="输入密码" name="pw" id="login_password">
+	<br/>
+	<input type="button" id="btn" value="提交">
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<script type="text/javascript">
+	//_proto_属性是属于prototype属性，并且是指向自己；
+		Object.defineProperty(Object.prototype,"_proto_",{
+			//访问的时候，应该返回本对象的原型
+			get:function(){
+				return Object.getPrototypeOf(this);
+			},
+			//设置的时候，传入用户想设置的对象，并用ES6方法setPrototypeOf()使用。
+			set:function(obj){
+				Object.setPrototypeOf(this,obj);
+				return obj;
+			}
+		});
+
+	function A(){};
+	var a = new A();
+	var b = {};
+	console.log(a._proto_);
+	console.log(a._proto_ = b);
+</script>
+<body>
+
+</body>
+</html>

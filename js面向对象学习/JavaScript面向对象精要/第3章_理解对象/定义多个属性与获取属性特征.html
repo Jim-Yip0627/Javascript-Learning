@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//定义多重属性:Object.defineProperties()
+//该方法接受两个参数:需要改变的对象和一个包含所有属性信息的对象。
+//后者的	键名==>属性名	键值==>属性描述对象
+	var person1 = {};
+
+	Object.defineProperties(person1,{
+		name:{
+			value:'YipChan',
+			enmuerable:true,
+			configurable:true,
+			writable:true
+		},
+		sayName:{
+			value:function(){
+				console.log('My name is ' + this.name);
+			},
+			enmuerable:true,
+			configurable:true,
+			writable:true
+		},
+		weight:{
+			value:'65kg',
+			enmuerable:false,
+			configurable:true,
+			writable:true
+		}
+	})
+
+	person1.sayName();										//My name is YipChan;
+	console.log(person1.propertyIsEnumerable('weight')); 	//false
+
+
+
+//获取属性特征：Object.getOwnPropertyDescriptor();
+//该方法只可用于自有属性。它接受两个参数：对象和属性名，并返回一个属性描述对象。
+//即便属性没有用Object.defineProperty()显示定义，也会返回一个包含属性特征的属性描述对象。
+	var person1 = {
+		name:'YipChan'
+	};
+
+	var descriptor = Object.getOwnPropertyDescriptor(person1,'name');
+	var object = Object.keys(descriptor);
+	console.log(object);	//返回一个长度为4的数组;
+</script>
+</head>
+<body>
+</body>
+</html>

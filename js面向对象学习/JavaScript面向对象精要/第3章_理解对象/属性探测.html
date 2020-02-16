@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//检测某个属性是否在对象里，按照我们通常的思维是：
+	var person = {
+		name:'YipChan',
+		sayName:function(){
+			console.log(this.name);
+		}
+	}
+
+	if(person.name){					//true
+		alert('The property exsists');
+	}
+
+	//但这个方法是不对的，因为在JavaScript中，当if判断中的值是一个对象、非空字符、非零数字或true时，判断
+	//会评估为真;  而当值是一个null、undefined、0、false、NaN或空字符串时评估为假。
+	//而由于一个对象属性可能包含这些假值，就有可能导致错误的判定。
+	//如：
+	//已知person.name是存在的，下面代码把person.name改为空字符串，再检测结果。
+	person.name = '';
+	if(person.name){					//false;
+		alert('The property exsists');
+	}
+
+//由上面可见，我们以前用的方法并不靠谱。在这里我们使用in操作符来进行属性的判断。
+	console.log('name' in person);		//true
+	console.log('sayName' in person);   //true
+	console.log('weigth' in person);	//false
+
+	console.log('-------------------')
+//但in操作符有时候也不是很靠谱。in操作符会检查自有属性和原型属性。而当你可能只希望仅当一个属性是自有属性才检查
+//其是否存在的时候，你就需要用另一种方法了：所有的对象都拥有的hasOwnProperty()方法。
+//该方法在给定属性存在且自有属性时返回true。下列代码比较了in和hasOwnProperty()针对person的不同属性的结果。
+	console.log('name' in person);					//true
+	console.log(person.hasOwnProperty('name'));		//true
+
+	console.log('toString' in person);				//true
+	console.log(person.hasOwnProperty('toString'))  //false
+</script>
+</head>
+<body>
+</body>
+</html>

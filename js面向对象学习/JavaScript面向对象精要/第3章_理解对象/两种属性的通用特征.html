@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//有两个属性特征是数据和访问器属性都具有的。
+//一个是[[Enumerable]],决定了你是否可以遍历该属性;
+//另一个是[[Configurable]],决定了该属性是否可配置。
+//注意，你声明的所有属性默认都是可枚举、可配置的。
+//若你想改变属性特征，可以使用Object.defineProperty()方法。
+	var person1 = {
+		name:'YipChan'
+	};
+
+	Object.defineProperty(person1,'name',{
+		enumerable:false
+	});
+
+	console.log('name' in person1);						//true
+	console.log(person1.propertyIsEnumerable('name'));  //false
+
+	var properties = Object.keys(person1);
+	console.log(properties.length);						//0
+
+	console.log('---------');
+
+	Object.defineProperty(person1,'name',{
+		configurable:false
+	});
+
+	//尝试delete属性;
+	delete person1.name;
+	console.log('name' in person1);						//true
+	console.log(person1.name);							//'YipChan'
+
+	Object.defineProperty(person1,'name',{				//error!!Cannot redefine property: name
+		configurable:true
+	});
+	
+	//凡是将enmuerable特征为false的属性，都不可枚举，即不能用for-in和Object.keys()遍历到它；
+	//凡是将configurable特征为false的属性，都不可配置，即1、不能删除该属性 2、不能用defineProperty()配置。
+	//其对象属性被有效地锁定。
+
+</script>
+</head>
+<body>
+</body>
+</html>

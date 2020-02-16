@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//所有你添加的属性默认都是可枚举的，也就是说你可以用for-in循环遍历它们。可枚举属性的内部特征
+//[[Enumerable]]都被设置为true。for-in循环会枚举一个对象所有可枚举属性并将属性名赋值给一个变量。
+	var object = {
+		name:'YipChan',
+		weight:'78kg',
+		height:'168cm',
+		job:'student',
+		eat:function(){
+			console.log('I love fish');
+		}
+	}
+	var property;
+	var length = 0;
+
+	for(property in object){
+		length++;
+		console.log('Name:' + property);			//输出属性名
+		console.log('Value:' + object[property]);	//输出属性值
+	}
+	alert(length);									//5
+	//如果你只需要获取一个对象的属性列表以备程序将来使用，EMCAScript5引入了Object.keys()方法，它
+	//可以获取可枚举属性的名字的数组;
+	var properties = Object.keys(object);
+	alert(properties);
+
+	//for-in循环返回的和Object.keys()返回的可枚举属性有一个区别：for-in循环同时会遍历原型属性而
+	//Object.keys()只返回自有属性; 因此想要for-in达到和Object.keys()一样的效果，就必须通过hasOwnProperty()
+	//来加以筛选。
+	function Person(){}
+	Person.prototype.tx1 = 'hello';
+	Person.prototype.tx2 = 'world!';
+
+	var person1 = new Person();
+	person1.name = 'YipChan';
+	person1.weight = '167';
+
+	var len = 0;
+	for(keys in person1){
+		len++;
+	}
+	alert(len);				//4;
+	
+	var res = Object.keys(person1);
+	alert(res.length);		//2; 很明显这个方法不会返回原型属性。
+
+//最后记住一句话：并不是所有属性都是可枚举的。实际上，对象大部分原生方法的[[Enumerable]]特征都被设置为false;
+//你可以用propertyIsEnumerable()方法检查一个属性是否为可枚举的。每个对象都拥有该方法。
+	var person1 = {
+		name:'Nicholas'
+	};
+
+	console.log('name' in person1);										//true
+	console.log(person1.propertyIsEnumerable('name'));					//true
+	console.log(person1.propertyIsEnumerable('toString'));				//false
+	console.log(person1.propertyIsEnumerable('propertyIsEnumerable')); //false
+
+	var properties = Object.keys(person1);
+
+	console.log('length' in properties);								//true
+	console.log(properties.propertyIsEnumerable('length'));				//false
+
+	//以上，name是可以枚举的，而对象原生方法toString()，甚至propertyIsEnumerable()也是不可枚举的。
+	//同时Array里的length属性也是不可以枚举的，因为它是Array.property的内建属性。你会发现很多原生属性
+	//默认都是不可枚举的。
+</script>
+</head>
+<body>
+</body>
+</html>

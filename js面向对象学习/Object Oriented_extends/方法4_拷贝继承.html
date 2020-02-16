@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//以上几种方式是采用prototype对象，实现继承。我们也可以换一种思路，纯粹采用"拷贝"方法实现继承。
+//简单说，如果把父对象的所有属性和方法，拷贝进子对象，不也能够实现继承吗？这样我们就有了第五种方法。
+	//首先，还是把Animal的所有不变属性，都放到它的prototype对象上。
+	function Animal(){}
+	Animal.prototype.species = "猫科动物";
+	Animal.prototype.food = 'fish';
+	Animal.prototype.eat = function(){
+		console.log('eat');
+	};
+
+	Animal.prototype.master = {'name':'YipChan','age':'18','gender':'male'};
+
+	function Cat(name,color){
+		this.name = name;
+		this.color = color;
+	}
+
+	//然后写一个函数，实现拷贝功能;(此函数是根据之前实现深拷贝函数的基础上完成的)
+	function extend(child,parent){
+		for(var key in parent){
+			if(typeof(parent[key]) === 'object'){
+				child[key] = {};
+				extend(child[key],parent[key]);//递归;
+			}else{
+				child[key] = parent[key];
+			}
+		}
+		return child;
+		child.uber = parent; 
+	}
+
+	extend(Cat.prototype,Animal.prototype);
+	var cat1 = new Cat;
+	alert(cat1.food);//'fish';
+
+	//为什么要用深拷贝呢？因为当属性是一个json的时候，就不仅仅是实现简单的赋值了，会涉及到引用，
+	//而引用则会造成一个问题：当你修改被复制者或者复制者的时候，另一方都会发生改变;
+	//在上面我令Animal.prototype.master = {***}是一个json，下面我们来看看深拷贝的效果：
+	alert(cat1.master.age);//18
+	//当cat1的属性值改变;
+	cat1.master.age = '32';
+	//可见并不会影响Animal的prototype;
+	alert(Animal.prototype.master.age);//18
+	alert(cat1.master.age);//32
+</script>
+</head>
+<body>
+</body>
+</html>

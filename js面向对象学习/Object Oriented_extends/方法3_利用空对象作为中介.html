@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//由于"直接继承prototype"存在上述的缺点，所以就有第四种方法，利用一个空对象作为中介。
+	var F = function(){};
+　　F.prototype = Animal.prototype;
+　　Cat.prototype = new F();
+　　Cat.prototype.constructor = Cat;
+
+//F是空对象，所以几乎不占内存。这时，修改Cat的prototype对象，就不会影响到Animal的prototype对象。
+	console.log(Animal.prototype.constructor); // Animal
+
+//我们将上面的方法，封装成一个函数，便于使用。
+	function extend(Child, Parent) {
+　　　　var F = function(){};
+　　　　F.prototype = Parent.prototype;
+　　　　Child.prototype = new F();
+　　　　Child.prototype.constructor = Child;
+　　　　Child.uber = Parent.prototype;
+　　}
+
+	extend(Cat,Animal);
+　　var cat1 = new Cat("大毛","黄色");
+　　alert(cat1.species); // 猫科动物;
+
+//另外，说明一点，函数体最后一行;Child.uber = Parent.prototype;
+//意思是为子对象设一个uber属性，这个属性直接指向父对象的prototype属性。这等于在子对象上打开一条通道，可以直接调用父对象的方法。
+//这一行放在这里，只是为了实现继承的完备性，纯属备用性质。
+</script>
+</head>
+<body>
+</body>
+</html>

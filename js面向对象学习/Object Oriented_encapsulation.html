@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>封装</title>
+</head>
+<script type="text/javascript">
+/*
+构造函数方法很好用，但是存在一个浪费内存的问题:
+请看，我们现在为Cat对象添加一个不变的属性type（种类），
+再添加一个方法eat（吃）。那么，原型对象Cat就变成了下面
+这样：
+ */
+ 	function Cat(name,color){
+	 	this.name = name;
+	 	this.color = color;
+	 	this.type = '猫科动物';
+	 	this.eat = function(){
+	 		alert('吃老鼠');
+	 	};
+	 }
+
+//还是采用同样的方法，生成实例：
+	var cat1 = new Cat('大黄','棕黄色');
+	var cat2 = new Cat('旺财','灰白色');
+	alert(cat1.type);
+	cat1.eat();
+
+/*
+这样看似乎没有什么问题，但实际上有很大一个弊端：
+对于每一个实例对象，type属性和eat()方法都是一
+模一样的内容，每次生成一个实例，都必须生成一次重
+复的内容，多占用一些内存，这样会拉低效率。
+ */
+
+//解决办法：JavaScript规定了每个构造函数都有一个prototype属性，
+//指向另一个对象。这个对象的所有方法和属性都会被构造函数的实例继承。
+	function mouse(name,color){
+		this.name = name;
+		this.color = color;
+		this.type = '鼠科动物';
+	}
+
+	alert(mouse.prototype);//结果为undefined;
+	//以上代码说明每个构造函数的prototype属性指向的对象都是空的，即undefined
+	//因为会被其实例继承，所以：
+	//只要我们把那些不变的属性和方法，直接定义在prototype对象上,那样生成的实例
+	//里面的不变的属性和方法，都是同一个内存地址，指向prototype对象，这样就提高
+	//了运行的效率
+	function Cat(name,color){
+		this.name = name;
+		this.color = color;
+	}
+
+	Cat.prototype.type = '猫科动物';
+	Cat.prototype.eat = function(){
+		alert('吃老鼠');
+	};
+
+	//实例化构造函数;
+	var cat1 = new Cat('大黄','棕黄色');
+	var cat2 = new Cat('旺财','灰白色');
+
+	alert(cat1.type);// 猫科动物
+	cat1.eat();// 吃老鼠
+	alert(cat1.eat == cat2.eat); //true
+	alert(cat1.type == cat2.type);//true
+
+	/*
+	用prototype方式添加的属性，是构造函数用于继承的，也就是说，这些属性是实例化对象所继承的属性；
+	但是在函数内部添加的属性如：this.name = name;这种方式添加的属性是实例化对象创建后自身的直系属性。
+	说白了就是继承属性和直系属性的区别。
+	 */
+	//prototype的验证方法;
+	
+	//isPrototypeOf()
+	//这个方法用来判断某个prototype对象和实例的关系;
+	alert(Cat.prototype.isPrototypeOf(cat1));//true
+	alert(Cat.prototype.isPrototypeOf(cat2));//true
+
+	//hasOwnProperty()
+	//每个实例对象都有一个hasOwnProperty()方法，用来判断某一个属性到底是本地属性，还是继承自prototype对象的属性。
+	//本地属性返回true;继承自prototype对象的返回false;
+	alert(cat1.hasOwnProperty('name'));//true
+	alert(cat1.hasOwnProperty('type'));//false
+
+	//in运算符
+	//in运算符可以用来判断，某个实例是否含有某个属性，*不管是不是本地属性*。
+	alert("name" in cat1); // true
+　　alert("type" in cat1); // true
+	//in运算符还可以用来遍历某个对象的所有属性。
+	for(prop in cat1){
+		alert("cat1["+prop+"]="+cat1[prop]);
+	}
+	
+</script>
+<body>
+</body>
+</html>

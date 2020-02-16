@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<script type="text/javascript">
+	function Foo(name){
+		this.name = name;
+	}
+
+	Foo.prototype.myName = function(){
+		return this.name;
+	};
+
+	function Bar(name,label){
+		Foo.call(this);
+		this.label = label;
+	}
+
+	//我们创建了一个新的Bar.prototype对象并关联到Foo.prototype;
+	//其实是 创建了一个新对象，并将新对象内部的[[prototype]]关联到你指定的对象;
+	Bar.prototype = Object.create(Foo.prototype);
+
+	Bar.prototype.myLabel = function(){
+		return this.label;
+	};
+
+	var a = new Bar('a','obj a');
+
+	a.myName();		//'a'
+	a.myLabel();	//'obj a'
+
+	//两个错误的做法：
+	//	Bar.prototype = Foo.prototype 
+	// => 由于Bar.prototype也是保存Foo.prototype的地址，所以一旦修改前者，就会令后者也发生改变；
+
+	//Bar.prototype = new Foo();
+	// => 基本满足需求，但有一些内在机制容易混淆；
+
+	//ES6提供了一个最方便的方法;
+	//Object.setPrototypeOf(Bar.prototype , Foo.prototype);
+
+	//为什么Bar.prototype = Object.create(Foo.prototype)方法不好用？
+	//因为这个方法是先创建了一个新对象，这样就不能在原来默认的对象上进行修改，这样就抛弃了原来的对象。
+	//会引起性能轻微的问题，但无伤大雅。从垃圾回收机制上说，无用的对象应该解除引用。
+</script>
+<body>
+
+</body>
+</html>

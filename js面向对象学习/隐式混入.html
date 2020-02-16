@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<script type="text/javascript">
+	//隐式混入
+	var Something = {
+		cool:function(){
+			this.greeting = "Hello World";
+			this.count = this.count ? this.count + 1 : 1;
+		}
+	};
+
+	Something.cool();
+	console.log(Something.greeting);
+	console.log(Something.count);	//1
+	Something.cool();
+	console.log(Something.count);	//2
+
+	var Another = {
+		cool:function(){
+			//隐式把Something混入Another;
+			Something.cool.call(this);
+		}
+	};
+
+	Another.cool();
+	console.log(Another.greeting);
+	console.log(Another.count); //1  =>注意count不是共享状态;
+</script>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//属性有两种类型：数据属性和访问器属性。数据属性包含一个值。[[Put]]方法的默认行为时创建数据属性；
+//访问器属性不包含值而是定义了一个当属性被读取时调用的函数(getter)和一个当属性被写入时调用的函数(setter)。
+//那访问器属性有什么用呢？			最简单的用途就是你可以用访问器属性来控制其他程序对对象属性的改变。
+//看下面一个例子：我设置了一个数据属性 _year 和一个访问器属性 year;
+//通过这样的形式，其他程序希望通过访问year访问属性来改变_year这个数据属性，那输入的值必须小于等于2018才能完成，
+//否则无法改变。
+	var person1 = {
+		_year:2006
+	}
+		
+	Object.defineProperty(person1,'year',{
+		get: function(){
+			return this._year;
+		},
+		set: function(value){
+			if(value<=2018){
+				this._year = value;
+			}else{
+				console.log('Error:Please set the value which is smaller than 2018.');
+			}
+		}
+	})
+
+	console.log(person1.year);		//2006
+	person1.year = 2017;			
+	console.log(person1.year);		//2017
+	person1.year = 2020;			//Error:Please set the value which is smaller than 2018.
+	console.log(person1.year);		//2017;修改不成功...
+
+	//前置下划线是一个约定成俗的命名规范，表示该属性被认为是私有的，实际上它还是公开的)
+	//这个方法其实并不能有效控制对数据变量_year的改变，因为它并没有控制读写_year的权限，它还是公开的。
+</script>
+</head>
+<body>
+</body>
+</html>

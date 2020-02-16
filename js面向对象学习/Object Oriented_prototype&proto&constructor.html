@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>prototype</title>
+<script type="text/javascript">
+//一、什么是prototype？
+	//在理解prototype之前，先来理解什么是构造函数：所谓构造函数，是生成一个对
+	//象的模板，是生成对象的函数。一个构造函数，可以生成多个实例对象，每个实例
+	//对象都有相同的结构。
+		function Cat(){
+			this.name = "money";
+			this.color = "black"
+		}
+
+		var cat1 = new Cat();
+		var cat2 = new Cat();
+	//在上面实例化构造函数的过程中，经历了这样一个步骤：
+	//1、创建一个空对象，作为将要返回的对象；（理解new关键字的作用原理）
+	//2、将空对象的原型指向Cat构造函数的prototype属性；
+	//3、将空对象赋值给构造函数内部的this关键字；也就是this关键字会指向**实例对象**；
+	//4、执行构造函数的代码；
+
+	//每在屏幕上敲出来一个函数，啥构造不构造的，根本不用管，系统都会为这个函数创建一个 prototype 属性。这个 prototype 
+	//属性指向一个对象，这个对象就是此函数的原型对象。
+
+	//原型对象哪来的，系统分配的呗，当然这里要注意一点，原型对象可不是 Function 或 Object，
+	//而是系统会为每个函数创建属于它自己的原型对象，因此每个函数的原型对象都是不同的。
+
+//二、什么是constructor？
+	//那原型对象里都有啥，其实很简单，如果你不操作这个原型对象，那么一开始它只包含**一个属性：constructor**
+	//当然可以在原型对象上添加你想添加的任何属性。
+	//constructor 属性干啥用的？   指向函数自身。
+		alert(Cat.prototype.constructor === Cat);//true
+
+	//实例对象cat1本身并没有constructor属性，但它可以继承原型对象Cat.prototype的constructor属性;
+		alert(cat1.constructor === Cat);//true
+
+	//但constructor并不是cat1自己有的属性：
+		alert(cat1.hasOwnProperty('constructor'));//false
+
+	//记住只有函数才有 prototype 属性，其他对象均没有此属性。
+	//而cat1，cat2并不是函数，只是一个普通的对象;
+	//如上面讲述的构造函数实例化过程，先不管new关键字，实质上就是调用了一个函数，并获得了一个
+	//返回值。而这个返回值就是一个对象，这个对象里并没有prototype属性。
+		alert(cat1.prototype);//undefined;
+
+//三、什么是__proto__?
+	//__proto__是任何对象上都有的一个属性，跟函数上的prototype属性有点相似。
+	//这个属性干嘛用的？指向该对象构造函数上的原型对象，即和构造函数的 Prototype 属性指向的是同一个对象。
+		alert(cat1.__proto__ === Cat.prototype);//true;
+
+	//现在来看下面这两段代码;
+		Cat.prototype.spices = "猫科动物";
+		alert(cat1.__proto__.spices); //
+	//spices属性是cat1对象原来没有的，但其构造函数的原型对象上有，所以在cat1上找不到spices属性时，
+	//系统就会通过__proto__属性找到其构造函数的原型对象，然后找到了spices属性。
+	//当然实际写代码的时候不用加__proto__属性，直接写cat1.spices就行。
+		alert(cat1.spices);
+		
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//在第二种方法里面，又分了两种小方法，但都是利用prototype直接继承；
+//首先我们来看第2.1方法：
+	//如果Cat的prototype对象，指向一个Animal的实例，那么所有Cat的实例，就能继承Animal了。
+	function Animal(){
+		this.species = "猫科动物";
+	}
+
+	function Cat(name,color){
+		this.name = name;
+		this.color = color;
+	}
+
+	//将Cat的prototype指向一个Animal实例，相当于删除原来对象的值，然后赋予一个新值；
+	Cat.prototype = new Animal();
+	//在Cat.prototype指向Animal实例后，其原型的constructor会变为Animal，这显然会导致继承链的紊乱
+	//（cat1明明是用构造函数Cat生成的），因此我们必须手动纠正，将Cat.prototype对象的constructor值改为Cat。
+	Cat.prototype.constructor = Cat;
+	//这种方法我们前面讲过，在Animal里面有很多的属性是不变的，若我们每进行一次继承便实例化一个构造函数，则
+	//会浪费内存，减慢运行效率，所以下面要提到第二种小方法:
+	
+//2.2方法：
+	function Animal(){}
+	Animal.prototype.species = '猫科动物';
+	function Cat(){
+		this.name = name;
+		this.color = color;
+	}
+
+	Cat.prototype = Animal.prototype;
+	Cat.prototype.constructor = Cat;
+	var cat1 = new Cat('大黄','金黄色');
+	console.log(cat1.species);//'猫科动物'
+	//这个继承的方法有一个很大的问题：
+	//Cat.prototype和Animal.prototype现在指向了同一个对象，那么任何对Cat.prototype的修改，都会反映到Animal.prototype。
+	//这就是我们常讲到的浅拷贝，具体内容请回顾笔记；
+	//所以其实上面的一段代码是有问题的，当我们令Cat.prototype.constructor = Cat;的时候，实际我们把Animal.prototype的
+	//constructor属性的值也改掉了！
+	console.log(Animal.prototype.constructor);//'Cat'
+</script>
+</head>
+<body>
+</body>
+</html>

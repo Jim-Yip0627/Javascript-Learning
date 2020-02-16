@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//深复制和浅复制最根本的区别在于是否是真正获取了一个对象的复制实体，而不是引用，
+	//1）深复制在计算机中开辟了一块内存地址用于存放复制的对象，
+　　//2）而浅复制仅仅是指向被复制的内存地址，如果原地址中对象被改变了，那么浅复制出来的对象也会相应改变。
+
+//下面来写一个实现深拷贝的函数：
+
+	function deepCopy(obj1,obj2){
+		//只拷贝值，不拷贝结构，因此这句话很必要;
+		var obj2 = obj2 || {};//给obj2一个初始结构;
+		for(var key in obj1){
+			if(typeof(obj1[key]) === 'object'){
+				obj2[key] = (obj1[key].constructor === Array)?[]:{};
+				deepCopy(obj1[key],obj2[key]);//递归;
+			}else{
+				obj2[key] = obj1[key];//如果不是对象，直接复制即可，不会发生引用
+			}
+		}
+		return obj2;
+	}
+
+	var json1 = {"name":"鹏哥","age":18,"arr1":[1,2,3,4,5],"string":'afasfsafa',"arr2":[1,2,3,4,5],"arr3":[{"name1":"李鹏"},{"job":"前端开发"}]};
+	var json2 = {};
+
+	json2 = deepCopy(json1,json2)
+	json1.arr1.push(6);
+	alert(json1.arr1);  //123456
+	alert(json2.arr1);  //12345
+//------------------继承使用---------------------
+	function Animal(){}
+	Animal.prototype.species = '猫科动物';
+	function Cat(){}
+	deepCopy(Cat.prototype,Animal.prototype);
+	Cat.prototype.constructor = Cat;
+
+	alert(Animal.prototype.constructor);//Animal
+	//实验表明，用深拷贝实现继承的方式是可取的
+</script>
+</head>
+<body>
+</body>
+</html>

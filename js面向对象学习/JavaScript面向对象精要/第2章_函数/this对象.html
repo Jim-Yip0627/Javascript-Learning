@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//来看这一个例子来说明this的重要性;
+	var person = {
+		name:'Nicholas',
+		sayName:function(){
+			console.log(person.name);
+		}
+	}
+
+	person.sayName();		//'Nicholas';
+
+	//结果输出没错。但有一个问题：若我将变量名person改变了，那么person.name就变成了undefined;
+	//这样是在方法和对象之间建立了紧耦合。这是有问题的，如果你改变变量名，你也要改变方法中引用的名字。
+	//同时你也很难让一个方法被不同对象使用。
+	//这里就要提到this的作用了。
+	var person = {
+		name:'Nicholas',
+		sayName:function(){
+			console.log(this.name);
+		}
+	};
+
+	person.sayName(); 		//'Nicholas';
+
+//JS所有的函数作用域内都有一个this对象代表调用该函数的对象。***在全局作用域中，this代表全局对象（浏览器里的window）。***
+//当一个函数作为对象的方法被调用的时候，默认this的值等于那个对象。
+	function sayNameForAll(){
+		console.log(this.name);
+	}
+
+	var person1 = {
+		name:'Yip',
+		sayName:function(){
+			console.log(this.name);
+		}
+	}
+
+	var person2 = {
+		name:'Li',
+		sayName:function(){
+			console.log(this.name);
+		}
+	}
+
+	var name = 'Shao';
+
+	person1.sayName();		//'Yip'
+	person2.sayName();		//'Li'
+	sayNameForAll();		//'Shao';   this指向全局对象;
+
+	//通过这个例子发现，其实定义在全局作用域的变量都是全局对象的属性；
+	//而函数就是全局对象的方法，这也难怪之前见到写法： sayNameForAll:function(){}  系正确的。
+	//所以在上面例子定义了一个全局变量name，而this指向全局对象，所以就是outputs 'Shao';
+	
+</script>
+</head>
+<body>
+</body>
+</html>

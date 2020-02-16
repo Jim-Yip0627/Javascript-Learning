@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//JavaScript最令人困惑的部分可能就是原始封装类型，这些原始封装类型共有三种（String、Number、Boolean）;
+//你时常会发现，这些特殊引用类型的存在使得原始类型用起来和对象一样方便（可以通过点使用其方法）。
+//来看下面一行代码：
+	var name = 'YipChan';
+	var res = name.charAt(0);
+	console.log(res);		//'Y';
+
+	//上面一段代码将一个字符串赋值给变量，在第二行将name当作一个对象调用了charAt()方法。
+	//实际上这是JS引擎在背后做的事：
+	
+	var name = 'YipChan';
+	var temp = new String('YipChan');
+	var res = temp.charAt(0);
+	temp = null;
+	console.log(res);		//'Y'；
+
+	//在第二行，字符串被当做对象使用：JavaScript引擎创建了一个字符串的实体可以让charAt(0)工作。
+	//然而，字符串对象的存在仅用于该语句并在随后被销毁。为了测试这一点，试着给字符串添加一个属性看看它是不是对象：
+	var name = 'YipChan';
+	name.last = 'hello';
+	console.log(name.last);		//undefined;
+
+	//下面这是上一段JS代码在背后实际发生的事情：
+	var name = 'YipChan';
+	var temp = new String('YipChan');
+	temp.last = 'hello';		
+	temp = null;				//现在将对象销毁;
+
+	var temp = new String('YipChan');
+	console.log(temp.last);		//undefined;
+	temp = null;
+
+//若你一定要手动创建原始封装类型，这里两个坑你要注意：
+//一、无法用typeof检查出你实际保存的数据类型;
+	var name = new String('Yip');
+	var num = new Number(123);
+	var found = new Boolean(false);
+
+	console.log(typeof name);	//object
+	console.log(typeof num);	//object
+	console.log(typeof found);	//object
+
+//二、使用String、Number、Boolean对象和使用原始值有一定区别。
+//譬如在判断方面，if判断对于一个对象来说，会永远返回true；无论该对象的值是不是等于false;
+//但是当下面这种情况，就发生问题了：
+
+	var judge = new Boolean(false);
+	if(judge){						//期待是不进行下一步的;
+		alert('hello world!');		//事实证明，还是会发生弹窗事件;
+	}
+	
+</script>
+</head>
+<body>
+</body>
+</html>

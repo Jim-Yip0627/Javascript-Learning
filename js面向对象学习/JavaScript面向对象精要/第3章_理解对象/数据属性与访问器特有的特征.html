@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+//一、数据属性额外拥有两个访问器属性不具备的特征。
+//第一个是[[value]]，包含属性的值。所有属性的值都保存在[[value]]中，哪怕一个该值是一个函数。
+//第二个特征是[[Writable]]，该特征是一个布尔值，指示该属性是否可以写入。所有属性都默认可写。
+	var person1 = {
+		name:'YipChan'
+	};
+	//is the same as
+
+	var person1 = {};
+	Object.defineProperty(person1,'name',{
+		value:'YipChan',
+		enmuerable:true,
+		configurable:true,
+		writable:true
+	});
+
+//以上两段代码实际效果相同，更加证明了，所有你添加的属性都是默认可以写入，可枚举，可配置的。
+//当Object.defineProperty()被调用的时候，它首先检查元素属性是否存在。
+//====>若不存在，将根据属性描述对象指定的特征创建。
+//====>若存在，当你用Object.defineProperty()改变已有属性特征时，只有指定的特征会被改变。
+
+//当你用Object.defineProperty()定义新的属性的时候，一定记得为所有特征指定一个值，否则布尔型的特征
+//会被默认设置为false。
+//来看下面这一段代码：
+	var person1 = {};
+	Object.defineProperty(person1,'name',{
+		value:'YipChan'
+	});
+
+	console.log('name' in person1);						//true
+	console.log(person1.propertyIsEnumerable('name'));	//false =>	 不可枚举
+
+	delete person1.name;								
+	console.log('name' in person1);						//true  =>	 不可配置
+
+	person1.name = 'Nicholas';
+	console.log(person1.name);							//'YipChan' => 不可写入
+
+
+
+
+
+//二、访问器属性特有的特征。
+//第一个是[[Get]]，是访问该属性时触发一个函数;
+//第二个是[[Set]]，是写入该属性时触发一个函数;
+
+//有两种方式添加访问器属性，来看第一种==>对象字面形式定义访问器属性
+	var person1 = {
+		_name:'Milo Yip',
+
+		get name(){
+			console.log('Reading name');
+			return this._name;
+		}
+
+		set name(){
+			console.log('Setting name to %s',value);
+			this._name = value;
+		}
+	}
+
+//来看第二种==>使用访问器属性特征定义访问器属性
+	var person1 = {
+		_name:'Milo Yip'
+	}
+
+	Object.defineProperty(person1,'name'{
+		get:function(){
+			console.log('Reading name');
+			return this._name;			
+		},
+		set:function(){
+			console.log('Setting name to %s',value);
+			this._name = value;			
+		},
+		enmuerable:true,
+		configurable:true
+	});
+
+//**这两种方式有什么哪个好呢？**
+//***
+//私以为 使用访问器属性特征的方法来定义访问器属性更好，因为你可以为已有的对象定义这些属性。
+//而相反 使用对象字面形式定义，则必须要在创建对象时定义。
+//***
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>继承</title>
+</head>
+<script type="text/javascript">
+//方法一：使用call or apply 方法
+//在javascript OOP中，我们经常会这样定义： 
+	function Cat(){
+	}
+	Cat.prototype = {
+		food:"Fish",
+		say:function(){
+			alert("I Love "+this.food);
+		}
+	}
+
+	var blackCat = new Cat();
+	//blackCat.say();
+
+/*
+但是如果我们有一个对象叫whiteDog = {food:"Bone"},我们不想对它重新定义say方法，那么
+我们可以通过使用apply或者call方法借用blackCat的say方法:
+ */
+ 	var whiteDog = {food:"Bone"};
+ 	//对于已实例化的类，我们可以直接用call方法;
+ 	//****而并未实例化的类，只能通过prototype使用（前提是prototype上有这个方法）****
+ 	blackCat.say.call(whiteDog);
+	whiteDog.say();
+/*
+所以我们可以看出call和apply方法是为了动态改变this而出现的。当一个object没有某个方法而
+其它对象有的时候，我们可以借助call或者apply使用其它对象的方法来操作。
+ */
+
+//********************************下面来讲一个很牛逼的例子***********************************
+/*
+通过document.getElementsByTagName选择的dom 节点是一种类似array的array。它不能应用Array下的push,pop等方法。
+我们可以通过：var domNodes =  Array.prototype.slice.call(document.getElementsByTagName("*"));
+这样domNodes就可以应用Array下的所有方法了。
+ */
+
+ 	var spanNodes = document.getElementsByTagName('span');
+ 	//slice方法返回一个完整的数组;
+ 	var domNodes = Array.prototype.slice.call(spanNodes);
+ 	//注意这里的slice并没有()，说明没有调用slice方法;因为函数也是对象，所以这里是将其当做对象访问其方法。
+ 	console.log(domNodes.pop());
+ 	console.log(domNodes.push("<span>我是九</span>"))
+</script>
+<style type="text/css">
+.span{
+	color: red;
+	font-size: 16px;
+}
+</style>
+</head>
+<body>
+	<span>我是一</span>
+	<span>我是二</span>
+	<span>我是三</span>
+	<span>我是四</span>
+	<span>我是五</span>
+	<span>我是六</span>
+	<span>我是七</span>
+	<span>我是八</span>
+</body>
+</html>
