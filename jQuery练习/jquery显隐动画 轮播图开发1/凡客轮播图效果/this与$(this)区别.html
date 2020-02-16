@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<script src="jquery.min.js"></script>
+<script>
+$(function(){
+	$("#box p").click(function(){
+		var a = $(this);
+		setTimeout(function(){
+			a.css({"color":"red"});
+		},1000);
+	})
+})
+
+
+</script>
+<body>
+	<div id="box" style="margin:0 auto;font-size:24px;">
+    	<p>后盾人，人人做后盾</p>
+        <p>后盾人，人人做后盾</p>
+        <p>后盾人，人人做后盾</p>
+        <p>后盾人，人人做后盾</p>
+        <p>后盾人，人人做后盾</p>
+        <p>后盾人，人人做后盾</p>
+    </div>
+    
+    
+</body>
+</html>

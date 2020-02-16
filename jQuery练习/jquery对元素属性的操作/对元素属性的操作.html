@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<script src="jquery.min.js"></script>
+<script>
+	$(function(){
+		$("#btn").click(function(){
+			//获得元素属性
+			//re = $(".biaoqian").attr("hd");
+			//alert(re);
+			
+			//设置元素属性;
+			//$(".biaoqian").attr("class","qqqqqqqqqqqqqqq");
+				
+			//prop的用法;
+			re = $(".biaoqian").prop("class");
+			alert(re);	
+		})
+	})
+</script>
+<body>
+<input type="button" value="点我看看" id="btn"/>
+<h1 class="biaoqian" hd="houdun">后盾人 人人学后盾</h1>
+</body>
+</html>

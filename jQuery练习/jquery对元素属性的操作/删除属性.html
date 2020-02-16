@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<script src="jquery.min.js"></script>
+<script>
+$(function(){
+	$("#btn").click(function(){
+		//removeAttr可以删除任意的属性，本质上是删除属性节点;
+		$("#fuxuan").removeAttr("class");
+		alert($("#fuxuan").prop("class"));
+		//能获得元素的值：hd;
+		//removeProp是将元素属性的值删掉;
+		//$("#fuxuan").removeProp("class");
+		
+		//alert($("#fuxuan").prop("class"));
+		//undefined;
+	})
+})
+</script>
+</head>
+<body>
+<input type="checkbox" id="fuxuan"  class="hd"/>
+<input type="button" id="btn" value="点我看看" />
+</body>
+</html>

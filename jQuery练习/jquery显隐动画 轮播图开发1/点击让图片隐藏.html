@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<script src="jquery.min.js"></script>
+<script>
+	$(function(){
+		//给按钮加点击事件;
+		$("#btn").click(function(){
+			//$("#pic").css({"display":"none"});
+			//$("#pic").hide();
+			//$("#pic").show();
+			//自动控制元素显隐;
+			//$("#pic").toggle();
+			
+			//$("#pic").fadeOut(5000,function(){
+			//	alert("报告长官！");
+			//});
+			
+			//自动控制元素淡入淡出显隐;
+			$("#pic").fadeToggle(2000);
+			
+		})
+	})
+</script>
+<body>
+	<input type="button" value="点我啊！！！！" id="btn"/>
+    <br/><br/>
+    <img src="ZC.jpg" id="pic"/>
+</body>
+</html>

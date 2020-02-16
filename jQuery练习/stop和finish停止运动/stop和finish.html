@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+#pidan{
+	position:absolute;
+	left:0px;
+	top:50px;
+}
+</style>
+<script src="jquery.min.js"></script>
+<script>
+$(function(){
+	//如果元素身上有多个运动，stop会停止元素身上现在正在执行的运动，然后开始队列中的下一个运动；
+	$("#btn1").click(function(){
+		$("#pidan").animate({"left":"200px"},3000);
+	})
+	$("#btn2").click(function(){
+		$("#pidan").animate({"left":"400px"},3000);
+	})
+	$("#btn3").click(function(){
+		$("#pidan").animate({"left":"600px"},3000);
+	})	
+	$("#btn4").click(function(){
+		$("#pidan").animate({"left":"800px"},3000);
+	})
+	$("#stop").click(function(){
+		$("#pidan").stop();
+	})	
+	
+	$("#finish").click(function(){
+		$("#pidan").finish();
+	})	
+})
+</script>
+<body>
+	<input type="button" value="200" id="btn1"/>
+   	<input type="button" value="400" id="btn2"/>
+	<input type="button" value="600" id="btn3"/>    
+	<input type="button" value="800" id="btn4"/>    
+    <input type="button" value="stop" id="stop"/>
+    <input type="button" value="finish" id="finish"/>
+    <img src="pidan.gif" id="pidan"/>
+</body>
+</html>

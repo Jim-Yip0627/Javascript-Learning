@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+#hd{
+	width:400px;
+	height:40px;
+	margin:200px auto;
+	position:relative;
+	overflow:hidden;
+}
+#hd ul{
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+#hd ul li{
+	list-style:none;
+	width:400px;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+}
+</style>
+<script src="jquery.min.js"></script>
+<script>
+$(function(){
+	//大总管变量;
+	var c = 0;
+	//设置定时器，让ul每隔1秒滑动一次；
+	setInterval(function(){
+		c++;
+		if(c==5){
+			//让ul做一个瞬时变化;
+			$("#hd ul").css({"top":"0px"});
+			c = 1;
+		}
+		//计算ul的top应该到达的值;
+		var t = c*-40;
+		//让ul滑动上去
+		$("#hd ul").animate({"top":t+"px"},500);
+	},2000);
+})
+</script>
+<body>
+	<div id="hd">
+    	<ul>
+        	<li style="background:#999;">美国宣布收紧对古巴政策 取消奥巴马时期多项措施</li>
+            <li style="background:#CCC;">反腐风暴后 沙特承诺保护沙特境内外所有公司权力</li>
+            <li style="background:#999;">美军方公布3航母西太罕见演习时间：11日至14日</li>
+            <li style="background:#CCC;">外媒称大马欲与中国加强榴莲外交:开启两国钻石时代</li>
+            <li style="background:#999;">美国宣布收紧对古巴政策 取消奥巴马时期多项措施</li>
+        </ul>
+    </div>
+</body>
+</html>

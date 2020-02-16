@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<script src="jquery.min.js"></script>
+<script>
+	$(function(){
+		//$("#box p").eq(2).css({"color":"red"});
+		
+		//$("#box p").first().css({"color":"red"});
+		
+		//给p标签加事件;
+		//$("#box p").click(function(){
+			//获得当前被点击的元素是否有class是one;
+			//若有则返回true;若无返回false;
+		//	var re = $(this).hasClass("one");
+		//	if(re){
+		//		alert("存在的");
+		//	}else{
+		//		alert("不存在的");
+		//	}
+		//})
+		
+		//找到box里所有的p标签，然后从找到的结果中筛选出符合class是one的p标签;
+		//$("#box p").filter(".one").css({"color":"red"});
+		//找到box里所有的p标签，然后从找到的结果中筛选出符合class是one的第一个p标签;
+		//$("#box p").filter(".one:first").css({"color":"red"});
+		
+		//$("#box p").click(function(){
+		//	var re = $(this).is("#three");
+		//	if(re){
+		//		alert("存在的");
+		//	}else{
+		//		alert("不存在的");
+		//	}
+		//})
+		
+		//截取box里的2到5号标签，包含2号不包含5号;
+		$("#box p").slice(2,5).css({"color":"red"});
+	})
+</script>
+<body>
+	<div id="box">
+    	<p>后盾人人人学后盾0</p>
+        <p class="one">后盾人人人学后盾1</p>
+        <p class="one">后盾人人人学后盾2</p>
+        <p id="three">后盾人人人学后盾3</p>
+        <p>后盾人人人学后盾4</p>
+        <p>后盾人人人学后盾5</p>
+        <p>后盾人人人学后盾6</p>
+        <p>后盾人人人学后盾7</p>
+    </div>
+</body>
+</html>

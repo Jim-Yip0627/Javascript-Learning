@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+#box{
+	width:200px;
+	height:176px;
+	background:#F60;
+	position:absolute;
+	top:23px;
+	left:16px;
+}
+</style>
+<script src="jquery.min.js"></script>
+<script>
+$(function(){
+	$("#box").click(function(){
+		$("#box").animate({"width":"600px","height":"300px","top":"200px","left":"400px"},3000)
+	})
+})
+</script>
+<body>
+	<div id="box"></div>
+</body>
+</html>

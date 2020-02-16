@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<script src="jquery.min.js"></script>
+<script>
+	$(function(){
+		//选择的是box里面所有处在隐藏状态下的p标签；
+		$("#box p:hidden").css({"font-size":"25px","color":"#F00","display":"block"});
+        
+		//选择的是box里面所有处在显示状态下的p标签；
+		$("#box p:visible").css({"font-szie":"25px","color":"red"});
+		
+		//选择的是box里面所有有class属性的p标签;
+		$("#box p[class]").css({"font-szie":"25px","color":"red"});
+		
+		//选择的是box里面所有有hd属性值等于houdun的p标签;
+		$("#box p[hd = houdun]").css({"font-szie":"25px","color":"red"});
+		
+		//选择的是box里面所有class属性值不等于er的p标签;
+		$("#box p[class != er]").css({"font-szie":"25px","color":"red"});
+		
+		//选择的是box里面所有class值性值以ho开头的p标签;
+		$("#box p[class ^= ho]").css({"font-szie":"25px","color":"red"});
+		
+		//选择的是box里面所有class属性值以u结尾的p标签;
+		$("#box p[class $= u]").css({"font-szie":"25px","color":"red"});
+		
+		//选择的是box里面所有class属性值含有un的p标签;
+		$("#box p[class *= un]").css({"font-szie":"25px","color":"red"});
+		
+		//选择的是box里面所有class属性值含有un的p标签;
+		$("#box p[class *= un]").css({"font-szie":"25px","color":"red"});
+		
+		//选择的是box里有value属性，并且class属性值中含有e，并且hd属性的值是houdun的p标签;
+		$("#box p[value][class *= e][hd = houdun]").css({"font-szie":"25px","color":"red"});
+	})
+</script>
+<body>
+	<div id="box">
+    	<p>后盾人，人人做后盾0</p>
+        <p class="one" hd="houdun" value="hhh">后盾人，人人做后盾1</p>
+        <p class="er">后盾人，人人做后盾2</p>
+        <p>后盾人，人人做后盾3</p>
+        <p>后盾人，人人做后盾4</p>
+        <p>后盾人，人人做后盾5</p>
+        <p class="houdunliu">后盾人，人人做后盾6</p>
+        <p class="houdunqi">后盾人，人人做后盾7</p>
+        <p></p>
+        <p></p>
+        <div>
+        	<p>我们也是p标签</p>
+            <p>我们也是p标签</p>
+            <p>我们也是p标签</p>
+        </div>
+    </div>
+</body>
+</html>

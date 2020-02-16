@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+#tm{
+	width:400px;
+	height:300px;
+	border:4px solid orange;
+	margin:0 auto;
+	position:relative;
+}
+#pic{
+	width:200px;
+	position:absolute;
+	left:200px;
+	bottom:0px;
+}
+</style>
+<script src="jquery.min.js"></script>
+<script>
+$(function(){
+/*	var a,b ;
+	//给div添加鼠标移入事件;
+	$("#tm").mouseenter(function(){
+		clearTimeout(b);
+		a = setTimeout(function(){
+			$("#pic").animate({"left":"190px"},500);
+		},300);
+	})
+	//给div添加鼠标移出事件
+	$("#tm").mouseleave(function(){
+		clearTimeout(a);
+		b = setTimeout(function(){
+			$("#pic").animate({"left":"200px"},500);
+		},300);
+	})
+})*/
+
+	//给div添加鼠标移入事件;
+	$("#tm").mouseenter(function(){
+			$("#pic").stop().animate({"left":"190px"},500);
+	})
+	//给div添加鼠标移出事件
+	$("#tm").mouseleave(function(){
+			$("#pic").stop().animate({"left":"200px"},500);
+	})
+})
+</script>
+<body>
+ <div id="tm">
+ 	<img src="TMmv.jpg" id="pic"/>
+ </div>
+</body>
+</html>

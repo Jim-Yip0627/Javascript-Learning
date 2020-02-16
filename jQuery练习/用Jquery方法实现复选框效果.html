@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<script src="jquery.min.js"></script>
+<script>
+$(function(){
+	//给按钮添加单击事件;
+	$("#btn").click(function(){
+	//获取input元素里name属性为check中所有被选中的表单元素;
+	var items = $("input[name='check']:checked");
+	//注意：items是一个jquery对象;items里面的元一个个素是DOM对象;
+	
+	var totalScore = 0;
+	//对items进行遍历;
+	for(var i=0;i<items.length;i++){
+		//将获取到的DOM对象的value值赋给变量score;
+		score = items[i].value;
+		//计算总分;
+		totalScore = totalScore+parseInt(score);
+	}
+	alert(totalScore);
+	})
+})
+</script>
+<body>
+第一题：
+<input type="checkbox" value="10" name="check" checked="checked"/>1
+<input type="checkbox" value="10" name="check" />1
+<input type="checkbox" value="0" name="check" />0
+<input type="checkbox" value="0" name="check" checked="checked"/>0
+<br/><br/>
+第二题：
+<input type="checkbox" value="10" name="check" checked="checked"/>1
+<input type="checkbox" value="0" name="check" />0
+<input type="checkbox" value="0" name="check" />0
+<input type="checkbox" value="10" name="check" checked="checked"/>1
+<br/><br/>
+第三题：
+<input type="checkbox" value="10" name="check" checked="checked"/>1
+<input type="checkbox" value="0" name="check" />0
+<input type="checkbox" value="0" name="check" />0
+<input type="checkbox" value="10" name="check" checked="checked"/>1
+<br/<br/>
+第四题：
+<input type="checkbox" value="10" name="check" checked="checked"/>1
+<input type="checkbox" value="0" name="check" />0
+<input type="checkbox" value="0" name="check" />0
+<input type="checkbox" value="0" name="check" checkeod="checked"/>0
+<br/><br/>
+<input type="button" value="您选中的个数" id="btn"/>
+</body>
+</html>

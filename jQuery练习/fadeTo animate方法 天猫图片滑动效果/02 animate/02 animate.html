@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+*{
+	padding:0;
+	margin:0;
+}
+#pidan{
+	position:absolute;
+	left:0;
+	top:50px;
+}
+</style>
+<script src="jquery.min.js"></script>
+<script>
+	$(function(){
+		$("#btn").click(function(){
+			$("#pidan").animate({"left":"600px"},2000,function(){
+				alert("哈哈撞墙了");
+			});
+		})
+	})
+</script>
+<body>
+<input type="button" id="btn" value="点我啊！">
+<br/><br/>
+<img src="pidan.gif" id="pidan" style="position:absolute;left:0px;top:50px;">
+</body>
+</html>

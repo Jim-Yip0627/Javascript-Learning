@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+*{
+	padding:0;
+	margin:0;
+}
+#fk{
+	width:1200px;
+	height:535px;
+	margin:0 auto;
+	position:relative;
+}
+#fk img{
+	position:absolute;
+	top:0px;
+	left:0px;
+	display:none;
+}
+#fk ul{
+	position:absolute;
+	left:548px;
+	bottom:23px;
+}
+#fk ul li{
+	list-style:none;
+	width:20px;
+	height:20px;
+	background:#000;
+	float:left;
+	margin-right:8px;
+	border-radius:10px;
+}
+</style>
+<script src="jquery.min.js"></script>
+<script>
+	$(function(){
+		//大总管变量;
+		var c = 0;
+		function run(){
+				c++;
+				//对c做判断;三元表达式写法；
+				c = (c==5)?0:c;
+				//让c号图片显示，兄弟图片隐藏;
+				//$("#fk img").eq(c).show();
+				//$("#fk img").eq(c).siblings("img").hide();
+				$("#fk img").eq(c).fadeIn(1000).siblings("img").fadeOut(1000);
+				
+				//让c号link变红，兄弟link变黑;
+				$("#fk li").eq(c).css({"background":"#A10000"}).siblings("li").css({"background":"#000"});
+				
+				//链式操作；
+				//张三.扇一巴掌.泼一盆水.踢他一脚.同桌.给个拥抱；
+			}
+			
+		var timer = setInterval(run,2000);
+		
+		
+		//移入事件： onmouseover => mouseenter;
+		//移出事件： onmouseout => mouseleave;
+		//两种写法都排除了鼠标与事件源之间元素的干扰；（注意on已被去除）；
+		
+		//给li加鼠标移入事件;
+		$("#fk li").mouseenter(function(){
+			var jqthis = $(this);
+			//停止定时器；
+			clearInterval(timer);
+			//设置定时炸弹;
+			//如果$(this)写在定时器里，那么$(this)指向的就是定时器；
+			tt = setTimeout(function(){
+				//获得当前移入li的序号;
+				c = jqthis.index();
+				//让c号图片显示，兄弟图片隐藏;
+				$("#fk img").eq(c).stop().fadeIn(1000).siblings("img").stop().fadeOut(1000);	
+				//让c号link变红，兄弟link变黑;
+				$("#fk li").eq(c).css({"background":"#A10000"}).siblings("li").css({"background":"#000"});		
+			},100);
+		})
+		
+		//给li加鼠标移出事件;
+		$("#fk li").mouseleave(function(){
+			//清除定时炸弹;
+			clearTimeout(tt);
+			//恢复定时器;（全局变量）
+			timer = setInterval(run,2000);
+		})
+		
+	})
+</script>
+<body>
+	<div id="fk">
+    	<img src="images/1.jpg" style="display:block;"/>
+        <img src="images/2.jpg"/>
+        <img src="images/3.jpg"/>
+        <img src="images/4.jpg"/>
+        <img src="images/5.jpg"/>
+        <ul>
+        	<li style="background:#A10000"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</body>
+</html>
