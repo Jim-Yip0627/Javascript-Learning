@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+	//我们可以使用[]来构建一个简单的类;
+	//所谓类是指符合某些特征的对象，一个泛指，而不是特指某个字符;
+	//表达式[abc]把字符a,或b，或c归为一类，表达式可以匹配这样的字符;
+	var reg = /[abc]/g;
+	var txt = 'a1b2c3d4';
+	var res = txt.replace(reg,'X');
+	console.log(res);
+
+	//字符类取反;
+	//使用元字符^创建反向类/负向类;
+	//反向类的意思是不属于某类的内容;
+	//表达式[^abc]表示不是字符a,或b，或c的内容;
+	var res = txt.replace(/[^abc]/g,'X');
+	console.log(res);
+</script>
+</head>
+<body>
+</body>
+</html>

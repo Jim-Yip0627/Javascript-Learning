@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+	//正则提供了范围类;
+	//我们可以使用[a-z]来连接两个字符表示从a到z的任意字符
+	//是一个闭区间，即包含a与z本身;
+	var res = 'a1b2c3d4'.replace(/[a-z]/g,'X');
+	console.log(res);
+
+	//在[]组成的类内部是可以连写的[a-zA-Z]，即又匹配小写，又匹配大写;
+	//当然这 /[a-z]/gi 也有同样效果;
+	var res = 'a1b2c3d4EGEGEG'.replace(/[a-zA-Z]/g,'X');
+	console.log(res);
+
+	//若我想匹配'-'呢？这也是可以的;
+	//只有在两个数字中间或者字母中间的'-'才是表示范围。写在后面就可以匹配它了;
+	var res = '2008-01-24'.replace(/[0-9-]/g,'X');
+	console.log(res);
+</script>
+</head>
+<body>
+</body>
+</html>

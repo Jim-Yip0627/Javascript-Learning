@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+	//匹配ab-一个数字-任意字符
+	//原写法：ab[0-9][^\r\n]
+	//最简写法:ab\d.
+
+	//非边界字符\B
+	var res = 'This is a boy.'.replace(/\Bis\b/g,'X');
+	console.log(res);	//ThX is a boy.
+
+	//元字符在不同场景下有不同的含义;
+	//譬如^是以XXXX开始；但在[]里面则是 取反;
+	console.log('@a1@b4@c2@'.replace(/@./g,'X'));		//X1X4X2@
+
+	console.log('@a1@b4@c2@'.replace(/^@./g,'X'));		//X1@b4@c2@
+
+	console.log('@a1@b4@c2@d'.replace(/@.$/g,'X'));		//@a1@b4@c2X
+
+	var mulStr = '@123\n@abc\n@g56';
+	/*
+	mulStr
+	"@123
+	@abc
+	@g56"
+	mulStr.replace(/^@./g,'X');
+	"X23
+	@abc
+	@g56"
+	mulStr.replace(/^@./gm,'X');
+	"X23
+	Xbc
+	X56"
+	*/
+	//由上面可见m可以匹配多行字符。所谓多行字符不是人工的换行，而是在
+	//字符串里表现为XXX\nXXXX;
+	//m会自动识别\n，并将其当做开头;
+</script>
+</head>
+<body>
+</body>
+</html>

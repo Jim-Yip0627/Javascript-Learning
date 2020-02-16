@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+	//正则表达式从文本头部向尾部开始解析，文本的尾部方向，称为'前';
+	//前瞻就是在正则表达式匹配到规则的时候，向前检查是否符合断言，后顾/后瞻方向相反;
+	//JS不支持后顾;
+	//符合和不符合特定断言被称为 肯定/正向匹配 和 否定/负向匹配;
+
+	console.log('a2*34v8'.replace(/\w(?=\d)/g,'X'));
+	//注意匹配部分只是\w,后面的(?=\d)部分只是断言;
+	//这是一个正向匹配;
+	//X2*X4X8
+
+	console.log('a2*34v8'.replace(/\w(?!\d)/g,'X'));
+	//注意\w 匹配任何字类字符,包括下划线,与“[A-Za-z0-9_]”等效;
+	//这是一个反向匹配;
+	//aX*3XvX
+</script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+	//贪婪模式
+	//\d{3,6}
+	//正则在通常情况下是贪婪的，会尽可能匹配最大次数;
+	var res = '12345678'.replace(/\d{3,6}/g,'X');
+	console.log(res);		//X78  匹配\d{6};
+
+	//非贪婪模式;
+	//让正则表达式尽可能少的匹配，也就是说一旦成功匹配不再继续尝试
+	//就是非贪婪模式;
+	//做法很简单，在量词后面加上?即可;
+	var res = '12345678'.replace(/\d{3,6}/g,'X');
+	console.log(res);		//XX78	匹配\d{3},匹配两次;
+
+</script>
+</head>
+<body>
+</body>
+</html>

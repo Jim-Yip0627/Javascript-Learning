@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+	var reg = /\w/g;
+	while(reg.test('ab')){
+		console.log(reg.lastIndex);
+	}
+
+	//如果想用test原意的话，不必要加g;
+	//因为正则会用匹配的结果去影响正则对象的属性lastIndex;
+
+	//RegExp.prototype.exec(str);
+	//使用正则表达式模式对字符串执行搜索，并将更新全局RegExp对象的属性以反映匹配结果;
+	//如果没有匹配的文本则返回null,否则返回一个结果数组;
+	//这个数组有两个属性;
+	//	- index声明匹配文本的第一个字符的位置
+	//  - input存放被检索的字符串string
+
+	//非全局调用;
+	//	调用非全局的RegExp对象的exec()时，返回数组;
+	//	第一个元素是与正则表达式相匹配的文本;
+	//  第二个元素是第一个分组;
+	//	第三个元素是第二个分组;
+	//	以此类推.....
+
+	var reg3 = /\d(\w)(\w)\d/;
+	var reg4 = /\d(\w)(\w)\d/g;
+	var ts = '$1az2bb3cy4dd5ee';
+
+	var ret = reg3.exec(ts);
+
+	console.log(reg3.lastIndex + '\t' + ret.index +'\t' + ret.toString());	//0	1	1az2,a,z
+	console.log(reg3.lastIndex + '\t' + ret.index +'\t' + ret.toString());	//0	1	1az2,a,z
+	//注意！！！在非全局调用下，lastIndex没有用;
+
+	while(ret = reg4.exec(ts)){
+		console.log(reg4.lastIndex + '\t' + ret.index +'\t' + ret.toString());	
+	}
+	// 5	1	1az2,a,z
+	// 11	7	3cy4,c,y
+</script>
+</head>
+<body>
+</body>
+</html>

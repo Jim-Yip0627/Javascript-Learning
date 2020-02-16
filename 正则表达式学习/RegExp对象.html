@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+	//字面量形式创建正则表达式对象;
+	//g代表全局模式，匹配全文IS;
+	var reg = /\bis\b/g;
+	var txt = 'He is a boy.There is a dog.Where is she?';
+	var res = txt.replace(reg,'IS');
+	console.log(res);
+
+	//构造函数创建正则表达式对象;
+	//在JS中字符串内的反斜杠需要转义;注意第二个参数'g'，代表匹配全文;
+	var reg = new RegExp('\\bis\\b','g');
+	var txt = 'He is a boy.There is a dog.Where is she?';
+	var res = txt.replace(reg,'IS');
+	console.log(res);
+
+	//g:global全文搜索;若不添加，搜索到第一个匹配停止;
+	//i:ignore case 忽略大小写;在JS中是默认大小写敏感的;
+	var txt = 'He is a boy.Is he?';
+	var res = txt.replace(/\bis\b/gi,'0');
+	console.log(res);
+</script>
+</head>
+<body>
+</body>
+</html>

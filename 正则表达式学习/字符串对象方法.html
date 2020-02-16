@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+	//String.prototype.search();
+	//用于检索字符串中指定子字符串;或与正则相配的子字符串;
+	//方法返回第一个匹配结果index,查找不到返回-1;
+	//g全局模式对search方法无效;
+
+	console.log('a1b2c3d4e5'.search(/c/));	//4
+	console.log('-------------');
+
+	//String.prototype.match();
+	//与正则对象的exec方法很相似;同样支持g全局模式;
+
+
+	//String.prototype.split();
+	//传入一个参数;会按照传入的参数为分隔，将其变为数组;
+	//同样当面对不一样的分隔的时候，你也可以传入正则来匹配不同的分隔，将其变为数组;
+	console.log('1|2,3,4|5,6'.split(/[|,]/));	//["1", "2", "3", "4", "5", "6"]
+
+	//String.prototype.replace();
+	//可以利用回调函数，对匹配的字符串作处理，功能强大;
+	//回调函数有四个参数:
+	//	匹配的字符串;
+	//	分组，若没有则没有该参数;
+	//	匹配项在原字符串中的下标;
+	//	原字符串;
+	console.log('-------------');
+	var res = 'a1b2c3d4e5'.replace(/\d/g,(match,index,origin)=>{
+		console.log(index);
+		return parseInt(match) + 1;
+	});
+
+	console.log(res);	//a2b3c4d5e6
+
+
+	var res = 'a1b2c3d4e5'.replace(/(\d)(\w)(\d)/g,(match,group1,group2,group3,index,origin)=>{
+		console.log(match);
+		return group1 + group3;
+	});
+
+	console.log(res);	//a12c34e5
+</script>
+</head>
+<body>
+</body>
+</html>

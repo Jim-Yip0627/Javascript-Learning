@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+	var reg1 = /\w/;
+	var reg2 = /\d/gim;
+
+	console.log(reg1.global);		//false
+	console.log(reg1.ignoreCase);	//false
+	console.log(reg1.multiline);	//false
+
+	console.log(reg2.global);		//true
+	console.log(reg2.ignoreCase);	//true
+	console.log(reg2.multiline);	//true
+
+	console.log(reg1.source);		//"\w"
+	//注意！这几个属性是只读的，不可对其进行设置;
+</script>
+</head>
+<body>
+</body>
+</html>

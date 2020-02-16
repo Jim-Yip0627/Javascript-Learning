@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+	//分组
+	//用()可以达到分组的功能，使量词作用于分组;
+	//若这样写：/[a-z]\d{3}/g是匹配不到的，因为这个量词作用在\d,并不会作用在[a-z]；
+	var res = 'a1b2c3d4'.replace(/([a-z]\d){3}/g,'X');
+	console.log(res);
+
+	//或;
+	//表达式 |
+	console.log('BayronCasper'.replace(/Bayron|Casper/g,'X'));				//XX
+
+	console.log('Bayronsper BayrCasper'.replace(/Bayr(on|Ca)sper/g,'X'));	//X X
+
+	//反向引用;
+	//当你需要替换的内容不再是一个常量，而是匹配的内容;
+	//当你对正则进行 分组后，才能写$1/$2/$3等，不然$X永远是一个常量;
+	//知识点涉及变量的概念，与分组;
+	console.log('2016-12-05'.replace(/(\d{4})-(\d{2})-(\d{2})/g,'$3/$2/$1'));
+
+	//忽略分组;
+	//简单说就是我想对正则进行分组，但我又不想捕获它(即不想$1/$2等被占用);
+	//只需在分组内加上 ?: 就可以
+	//	(?:Bayron).(ok)
+	//此时$1表示的是ok;因为第一个分组Bayron被忽略了;
+</script>
+</head>
+<body>
+</body>
+</html>
