@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Image Gallery</title>
+</head>
+<style>
+body{
+	font-family:"Helvetica","Arial",serif;
+	color:#333;
+	background-color:#CCC;
+	margin:1em 10%;
+}
+h1{
+	color:#333;
+	background-color:transparent;
+}
+a{
+	color:#c60;
+	background-color:transparent;
+	font-weight:bold;
+	text-decoration:none;
+}
+ul{
+	padding:0;
+}
+li{
+	float:left;
+	padding:1em;
+	list-style:none;
+}
+img{
+	display:block;
+	clear:both;
+}
+</style>
+<script>
+	function showPic(whichpic){
+		var source = whichpic.getAttribute("href");
+		var title = whichpic.getAttribute("title");
+		var placeholder = document.getElementById("placeholder");
+		var word = document.getElementById("word");
+		placeholder.setAttribute("src",source);
+		word.innerHTML = title;
+	}  
+</script>
+<body>
+	<h1>Snapshots</h1>
+    <ul id="list">
+      <li>
+        <a href="city.jpg" title="A Terrifc City" onClick="showPic(this);return false">City</a>
+      </li>
+      <li>
+        <a href="forest.jpg" title="A Magical Forest" onClick="showPic(this);return false">Forest</a>
+      </li>
+      <li>
+        <a href="mountain.jpg" title="A Glare of Mountain" onClick="showPic(this);return false">Mountain</a>
+      </li>
+      <li>
+        <a href="ocean.jpg" title="An Endless Ocean" onClick="showPic(this);return false">Ocean</a>
+      </li>   
+    </ul> 
+    <img src="placeholder.jpg" width="640px" height="360px;"  id="placeholder"/>
+    <h2 id="word">Choose an image.</h2>  
+</body>
+</html>

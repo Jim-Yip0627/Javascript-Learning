@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<style>
+*{	
+	margin:0;
+	padding:0;
+}
+#box1{
+	border:2px solid #00F;
+	width:200px;
+	height:200px;
+	position:absolute;
+	left:50px;
+	top:50px;
+}
+#box2{
+	border:2px solid #00F;
+	width:200px;
+	height:200px;
+	position:absolute;
+	left:600px;
+	top:200px;
+}
+</style>
+<script>
+window.onload = function(){
+	var box1 = document.getElementById("box1");
+	var box2 = document.getElementById("box2");
+	var box1_left = box1.offsetLeft+box1.offsetWidth;
+	var box1_top = box1.offsetTop+box1.offsetHeight;
+	var sta = 0;
+	//给box2添加鼠标拖动事件	
+	box2.onmousedown = function(e){
+			//设置鼠标样式
+			box2.style.cursor="move";	
+			//获取鼠标按下事件对象;
+			var e = window.event || e;
+			
+			//x=鼠标相对于网页的x坐标-box2的left;
+			var x=e.clientX-this.offsetLeft;
+			//y=鼠标相对于网页的y左边-box2的top;
+ 			var y=e.clientY-this.offsetTop;
+			
+			document.onmousemove=function(e){//鼠标移动
+				sta = 0;
+			  	var e=window.event || e;//移动时创建一个事件
+				if((e.clientX-x)<(box1_left+30)&&(e.clientY-y)<(box1_top+30)){
+					sta = 1;
+				}
+			  	box2.style.left=(e.clientX-x)+"px";
+			  	box2.style.top=(e.clientY-y)+"px";
+				
+
+			 }
+			document.onmouseup=function (){//鼠标放开
+				if(sta==1){
+				box2.style.left= box1_left+"px";
+				box2.style.top=	box1.offsetTop+"px";
+				sta = 0;
+				}
+			  	document.onmousemove=null;
+			  	document.onmouseup = null;
+			  	box2.style.cursor="normal";//设置放开的样式
+			 }
+		}
+}
+</script>
+<body>
+<div id="box1"></div>
+<div id="box2"></div>
+</body>
+</html>
