@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>链表</title>
+<script type="text/javascript">
+	function LinkedList(){
+		var Node = function(element){
+			this.element = element;
+			this.next = null;
+		};
+
+		var length = 0;
+		var head = null;
+
+		this.append = function(element){
+			var node = new Node(element),
+				current;
+
+				if(head === null){
+					head = node;
+				}else{
+					current = head;//获取第一个元素的引用;
+
+					//循环列表，直到找到最后一项;
+					while(current.next){
+						current = current.next;
+					}
+
+					//当current.next等于null，即找到最后一项;
+					current.next = node;
+				}
+				length++;//更新列表长度;
+		};
+
+		this.removeAt = function(position){
+
+			//检查输入的值是否越界;
+			if(position>=0 && position<=length - 1){
+				var current = head,
+					previous;
+
+				//移除第一项;
+				if(position === 0){
+					head = current.next;
+
+				}else{
+					for(var i=0;i<positon;i++){
+						previous = current;
+						current = current.next;
+					}
+
+					previous.next = current.next;
+				}
+				length--;
+
+				return current.element;
+
+			}else{
+				return null;
+			}
+		};
+
+		this.insert = function(position,element){
+
+			//检查越界值
+			if(position >= 0 && position <= length){
+
+				var node = new Node(element),
+				current = head,
+				previous;
+
+				if(position === 0){
+
+					node.next = current;
+					head = node;
+				}else{
+					for(var i=0;i<position;i++){
+						previous = current;
+						current = current.next;
+					}
+					node.next = current;
+					previous.next = node;
+				}
+				length++;
+				return true;
+
+			}else{
+				return false;
+			}
+		};
+
+		this.toString = function(){
+			var current = head,
+				string = '';
+
+			while(current){
+				string = string + "," + current.element;
+				current = current.next;
+			}
+			return string.slice(1);
+		};
+
+		this.indexOf = function(element){
+			var current  = head;
+			index = 0;
+
+			while(current){
+				if(element === current.element){
+					return index;
+				}
+
+				index++;
+				current = current.next;
+			}
+
+			return -1;//表示没有;
+		};
+
+		this.isEmpty = function(){
+			return length === 0;
+		};
+
+		this.size = function(){
+			return length;
+		};
+
+		this.getHead = function(){
+			return head;
+		};
+	}
+
+	var linkList = new LinkedList();
+	var b1 = {
+		a:'1',
+		b:'2'
+	};
+	var b2 = {
+		a:'3',
+		d:'4'
+	};
+	var b3 = {
+		a:'5',
+		f:'6'
+	};
+
+	linkList.append(b1);
+	linkList.append(b2);
+	linkList.append(b3);
+
+	var obj = linkList.getHead();
+
+	while(obj.next){
+		console.log(obj.next.element.a);
+		obj = obj.next;
+	}
+</script>
+</head>
+<body>
+
+</body>
+</html>

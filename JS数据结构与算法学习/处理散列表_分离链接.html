@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<script>
+	//单项链表
+function LinkedList(){
+	var Node = function(element){
+		this.element = element;
+		this.next = null;
+	};
+
+	var length = 0;
+	var head = null;
+
+	this.append = function(element){
+		var node = new Node(element),
+			current;
+
+			if(head === null){
+				head = node;
+			}else{
+				current = head;//获取第一个元素的引用;
+
+				//循环列表，直到找到最后一项;
+				while(current.next){
+					current = current.next;
+				}
+
+				//当current.next等于null，即找到最后一项;
+				current.next = node;
+			}
+			length++;//更新列表长度;
+	};
+
+	this.removeAt = function(position){
+
+		//检查输入的值是否越界;
+		if(position>=0 && position<=length - 1){
+			var current = head,
+				previous;
+
+			//移除第一项;
+			if(position === 0){
+				head = current.next;
+
+			}else{
+				for(var i=0;i<positon;i++){
+					previous = current;
+					current = current.next;
+				}
+
+				previous.next = current.next;
+			}
+			length--;
+
+			return current.element;
+
+		}else{
+			return null;
+		}
+	};
+
+	this.insert = function(position,element){
+
+		//检查越界值
+		if(position >= 0 && position <= length){
+
+			var node = new Node(element),
+			current = head,
+			previous;
+
+			if(position === 0){
+
+				node.next = current;
+				head = node;
+			}else{
+				for(var i=0;i<position;i++){
+					previous = current;
+					current = current.next;
+				}
+				node.next = current;
+				previous.next = node;
+			}
+			length++;
+			return true;
+
+		}else{
+			return false;
+		}
+	};
+
+	this.toString = function(){
+		var current = head,
+			string = '';
+
+		while(current){
+			string = string + "," + current.element;
+			current = current.next;
+		}
+		return string.slice(1);
+	};
+
+	this.indexOf = function(element){
+		var current  = head;
+		index = 0;
+
+		while(current){
+			if(element === current.element){
+				return index;
+			}
+
+			index++;
+			current = current.next;
+		}
+
+		return -1;//表示没有;
+	};
+
+	this.isEmpty = function(){
+		return length === 0;
+	};
+
+	this.size = function(){
+		return length;
+	};
+
+	this.getHead = function(){
+		return head;
+	};
+}
+
+
+
+//散列表不重复实现
+function HashTable(){
+	var table = [];
+	var loseloseHashCode = function(key){
+		var hash = 0;
+		for(var i = 0;i<key.length;i++){
+			hash += key.charCodeAt(i);
+		}
+		return hash % 37;
+	};
+
+	//辅助类
+	var ValuePair = function(key,value){
+		this.key = key;
+		this.value = value;
+
+		this.toString = function(){
+			return '[' + this.key + '-' + this.value + ']';
+		}
+	};
+
+	this.put = function(key,value){
+		var position = loseloseHashCode(key);
+		
+		//若是初次在此位置加入元素
+		if(table[position] == undefined){
+			table[position] = new LinkedList();
+		}
+		table[position].append(new ValuePair(key,value));
+	};
+
+	this.get = function(key){
+		var position = loseloseHashCode(key);
+
+		if(table[position] != undefined){
+
+			//遍历链表来寻找键/值
+			var current = table[position].getHead();
+
+			while(current.next){
+				if(current.element.key === key){
+					return current.element.value;
+				}
+				current = current.next;
+			}
+
+			//检查元素在链表第一个或最后一个节点的情况
+			if//-------------------------------------------------------------------
+		}
+		return undefined;
+	};
+
+	this.remove = function(key){
+		table[loseloseHashCode(key)] = undefined;
+	};
+}
+</script>
+<body>
+</body>
+</html>

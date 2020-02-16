@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<script>
+//散列表
+//散列算法的作用是尽可能快在数据结构中找到一个值。
+function HashTable(){
+	var table = [];
+	var loseloseHashCode = function(key){
+		var hash = 0;
+		for(var i = 0;i<key.length;i++){
+			hash += key.charCodeAt(i);
+		}
+		return hash % 37;
+	};
+
+	this.put = function(key,value){
+		var position = loseloseHashCode(key);
+		console.log(position + '-' + key);
+		table[position] = value;
+	};
+
+	this.get = function(key){
+		return table[loseloseHashCode(key)];
+	};
+
+	this.remove = function(key){
+		table[loseloseHashCode(key)] = undefined;
+	};
+}
+
+var hash = new HashTable();
+hash.put('Gandalf', 'gandalf@email.com');
+hash.put('John','johnsnow@email.com');
+hash.put('Tyrion','tyrion@email.com');
+
+console.log(hash.get('Gandalf'));
+console.log(hash.get('Loiane'));
+</script>
+<body>
+</body>
+</html>

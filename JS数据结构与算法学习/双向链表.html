@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>双向链表</title>
+<script type="text/javascript">
+	function DoublyLinkedList(){
+		var Node = function(element){
+			this.element = element;
+			this.next = null;
+			this.prev = null;
+		};
+
+		var length = 0;
+		var head = null;
+		var tail = null;//对列表最后一项的引用;
+
+		this.insert = function(position,element){
+
+			//检查越界;
+			if(position>= 0 && position<= length){
+
+				var node = new Node(element),
+					current = head,
+					previous;
+
+				if(position === 0){
+
+					if(!head){//若链表为空;
+						head = node;
+						tail = node;
+					}else{
+						node.next = current;
+						current.prev = node;
+						head = node;
+					}
+				}else if(position === length){//若在结尾添加;
+
+					current = tail;
+					current.next = node;
+					node.prev = current;
+					tail = node;
+				}else{//在中间插入元素;
+					for(var i=0;i<position;i++){
+						previous = current;
+						current = current.next;
+					}
+
+					previous.next = node;
+					node.prev = previous;
+
+					current.prev = node;
+					node.next = current;
+				}
+
+				length++;
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		this.removeAt = function(position){
+
+			//检查越界值;
+			if(position>= 0 && position <=length-1){
+				var current = head,
+					previous;
+
+				//移除第一项;
+				if(position ===0){
+
+					head = current.next;
+
+					//如果只有第一项，更新tail;
+					if(length === 1){
+						tail = null;
+					}else{
+						head.prev = null;
+					}
+				}else{
+
+					for(var i=0;i<position;i++){
+
+						previous = current;
+						current = current.next;
+					}
+
+					previous.next = current.next;
+					current.prev = previous;
+				}
+
+				length--;
+				return current.element;
+			}else{
+				return null;
+			}
+		}
+
+	}
+</script>
+</head>
+<body>
+
+</body>
+</html>

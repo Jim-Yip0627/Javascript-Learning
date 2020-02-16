@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>循环队列</title>
+</head>
+<script type="text/javascript">
+	function Queue(){
+		var items = [];
+
+		this.enqueue = function(element){
+			return items.push(element);
+		}
+
+		this.dequeue = function(){
+			return items.shift();
+		}
+			
+		this.size = function(){
+			return items.length;
+		}
+	}
+
+	/*
+	击鼓传花游戏实则是规定一个次数num；然后不断将前面的元素往数组后插入，
+	形成一个循环；在循环num次后，将索引为0的元素删去，继续进行循环。在若
+	干次循环后，直到数组剩下最后一个元素。
+	 */
+	function hotPotato(nameList,num){
+		var queue = new Queue();
+
+		for(var i = 0;i<nameList.length;i++){
+			queue.enqueue(nameList[i]);
+		}
+
+		var eliminated = '';
+		while(queue.size()>1){
+			for(var i = 0;i<num;i++){
+				queue.enqueue(queue.dequeue());
+			}
+			eliminated = queue.dequeue();
+			console.log(eliminated + '在hotPotato游戏中被淘汰');
+		}
+
+		return queue.dequeue();
+	}
+
+
+	//调用---------->
+	var names = ['John','Jack','Camila','Ingrid','Carl'];
+	var winner = hotPotato(names,7);
+	console.log('胜利者:' + winner)
+</script>
+<body>
+</body>
+</html>

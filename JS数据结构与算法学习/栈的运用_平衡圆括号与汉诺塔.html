@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+<script>
+	//以构造函数的方式创建类;
+	function Stack(){
+		var items = [];
+		
+		this.push = function(element){
+			items.push(element);
+		};
+		
+		this.pop = function(){
+			//pop方法用于删除并返回数组最后一个元素;
+			return items.pop();
+		};
+		//用于返回栈顶的元素;
+		this.peek = function(){
+			return items[items.length-1];
+		};
+		//判断栈是否为空;
+		this.isEmpty = function(){
+			return items.length == 0;
+		};
+		
+		this.size = function(){
+			return items.length;
+		};
+		
+		this.clear = function(){
+			items = [];
+		};
+		
+		this.print = function(){
+			console.log(items.toString());
+		}	
+	}
+	
+	function balanceBrackets(string,baseLeft,baseRight){
+		var	decString = string;
+		var stack = new Stack;
+		for(var i=0;i<decString.length;i++){
+			var re = decString.charAt(i);
+			if(re==baseLeft){
+				stack.push(0);
+			}else if(re==baseRight){
+				stack.pop();
+			};
+		}
+		return stack.isEmpty();
+	}
+	
+	console.log(balanceBrackets("(((((rggdsgsg)))","(",")"));
+</script>
+<body>
+</body>
+</html>
